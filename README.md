@@ -1,139 +1,154 @@
-# Week 1 – Day 3 Assignment
+# SE-AI-B12-2-W1-D3
 
-This repository contains three automation and web scraping mini-projects built as part of the Week 1, Day 3 assignment.
-Each project automates a real-world, repetitive task using Python, and stores the results in an easy-to-review format (Excel and/or screenshots).
+Week 1 – Day 3 assignment: three Python automation and web scraping mini-projects, built with **Playwright**, **PyAutoGUI**, and **Excel reporting**.
+## 📁 Repository Structure
+
+```
+SE-AI-B12-2-W1-D3/
+│
+├── Cricketscore_playwright/
+│   ├── .gitignore
+│   ├── cricbuzz_matches.xlsx
+│   ├── cricbuzz_screenshot.png
+│   └── playwrightexample.py
+│
+├── Playwright_assignment/
+│   ├── whatsapp_screenshots/
+│   ├── .gitattributes
+│   ├── .gitignore
+│   ├── contacts.xlsx
+│   ├── playwright_assign.py
+│   ├── poster.jpeg
+│   ├── whatsapp_report_2026-09-29.json
+│   └── whatsapp_report_2026-09-29.xlsx
+│
+├── pyautogui_webscraping/
+│   ├── daily_report_2026-09-30.png
+│   ├── daily_report_2026-09-30.xls
+│   └── daily_report_bot.py
+│
+├── README.md
+└── requirements.txt
+```
 
 ---
 
-## 📁 Project Structure
+## 📌 1. Cricket Score Scraping — `Cricketscore_playwright/`
 
-```
-week1-day3-assignment/
-│
-├── 1_cricket_score_scraper/
-│   ├── cricket_score.py
-│   └── cricket_scores.xlsx        (generated after running)
-│
-├── 2_whatsapp_automation/
-│   ├── whatsapp_sender.py
-│   ├── contacts.xlsx              (input file you provide)
-│   └── whatsapp_screenshots/      (generated after running)
-│
-├── 3_trending_topics_scraper/
-│   ├── trending_scraper.py
-│   ├── trending_topics.xlsx       (generated after running)
-│   └── trending_screenshot.png    (generated after running)
-│
-├── requirements.txt
-└── README.md
-```
+**Goal:** Scrape live cricket scores from Cricbuzz and save them to Excel, with a screenshot of the page as proof.
 
----
+**Script:** `playwrightexample.py`
+**Tech stack:** `playwright`, `openpyxl`
 
-## 🧰 Prerequisites
+**What it does:**
+- Launches a browser and navigates to Cricbuzz
+- Scrapes current match scores from the page
+- Saves the parsed data into `cricbuzz_matches.xlsx`
+- Captures a full-page screenshot as `cricbuzz_screenshot.png`
 
-- Python 3.9 or above
-- Google Chrome installed
-- A virtual environment (recommended)
-
-Set up the environment:
-
+**How to run:**
 ```bash
-python -m venv venv
-venv\Scripts\activate        # Windows
-source venv/bin/activate     # macOS/Linux
-
-pip install -r requirements.txt
+cd Cricketscore_playwright
+pip install -r ../requirements.txt
 playwright install chromium
+python playwrightexample.py
 ```
 
 ---
 
-## 1️⃣ Cricket Score Web Scraping (PyAutoGUI)
+## 📌 2. WhatsApp Automation — `Playwright_assignment/`
 
-**Goal:** Fetch live/recent cricket scores from a public cricket website and save them into an Excel sheet, using PyAutoGUI to automate on-screen browser interactions.
+**Goal:** Send personalized WhatsApp messages (text and image posters) to a list of consented contacts, and generate a delivery report. Numbers masked for security reasons.
 
-**How it works:**
-- Opens the target cricket website in the default browser.
-- Uses `pyautogui` to simulate mouse clicks and keyboard actions to navigate to the scores page.
-- Extracts match details (teams, score, overs, status).
-- Saves the structured data into `cricket_scores.xlsx` using `openpyxl`.
+**Script:** `playwright_assign.py`
+**Tech stack:** `playwright`, `openpyxl`
 
-**Run:**
+**What it does:**
+- Reads contact details (name, phone, message, poster) from `contacts.xlsx`
+- Logs into WhatsApp Web via a persistent browser session (QR scan once)
+- Sends a personalized text message and/or the `poster.jpeg` image to each contact
+- Saves a screenshot of each conversation to `whatsapp_screenshots/`
+- Reads back the last 3 messages in each chat for confirmation
+- Saves a full delivery report as `whatsapp_report_<date>.json` and `whatsapp_report_<date>.xlsx`
+
+**How to run:**
 ```bash
-cd 1_cricket_score_scraper
-python cricket_score.py
+cd Playwright_assignment
+pip install -r ../requirements.txt
+playwright install chromium
+python playwright_assign.py
 ```
 
-**Note:** Since PyAutoGUI controls the real mouse and keyboard, keep the browser window active and avoid touching the mouse/keyboard while the script runs.
-
-**Output:** `cricket_scores.xlsx` containing match-wise score data.
+**⚠️ Responsible use:** This tool only messages contacts who have consented to receive messages. Built-in random delays are used between actions to avoid spam-like behavior.
 
 ---
 
-## 2️⃣ WhatsApp Automation (Playwright)
+## 📌 3. Daily Report Automation — `pyautogui_webscraping/`
 
-**Goal:** Send personalized WhatsApp messages (with an optional poster image) to a list of consenting contacts, and log delivery status automatically.
+**Goal:** Automate an on-screen/browser workflow using PyAutoGUI to capture a daily report and save it as an Excel file and screenshot.
 
-**How it works:**
-- Reads contacts (Name, Phone, Message, Poster) from `contacts.xlsx`.
-- Launches WhatsApp Web via Playwright with a persistent browser profile, so the QR code only needs to be scanned once.
-- Sends a personalized text message, or an image with a caption, to each contact.
-- Takes a screenshot of each conversation as proof of delivery.
-- Reads the last 3 messages in the chat to confirm the conversation state.
-- Saves a full report (`whatsapp_report_<date>.xlsx` and `.json`) with status, screenshot path, and any errors per contact.
+**Script:** `daily_report_bot.py`
+**Tech stack:** `pyautogui`, `openpyxl`
 
-**Run:**
+**What it does:**
+- Uses PyAutoGUI to interact with the screen and gather the daily report data
+- Parses and structures the extracted data
+- Saves the results into `daily_report_<date>.xls`
+- Saves a screenshot of the report as `daily_report_<date>.png`
+
+**How to run:**
 ```bash
-cd 2_whatsapp_automation
-python whatsapp_sender.py
+cd pyautogui_webscraping
+pip install -r ../requirements.txt
+python daily_report_bot.py
 ```
 
-**Note:** Only message contacts who have explicitly agreed to receive messages. Scan the WhatsApp Web QR code when prompted, then press Enter in the terminal to begin sending.
-
-**Output:** `whatsapp_screenshots/`, `whatsapp_report_<date>.xlsx`, `whatsapp_report_<date>.json`
+**Note:** Keep the target window in the foreground and avoid moving the mouse/keyboard while the script runs, since PyAutoGUI automates the screen directly.
 
 ---
 
-## 3️⃣ Trending Topics Scraper (Playwright)
+## ⚙️ General Setup
 
-**Goal:** Scrape currently trending topics/keywords from a public trends source, parse and sort the data, store it in Excel, and capture a screenshot of the source page as evidence.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/strangefirm/SE-AI-B12-2-W1-D3.git
+   cd SE-AI-B12-2-W1-D3
+   ```
 
-**How it works:**
-- Launches a headless/headed browser using Playwright and navigates to the trends page.
-- Parses the trend names, ranks, and related metrics (e.g., tweet/search volume) from the page content.
-- Sorts the parsed data (e.g., by rank or volume).
-- Writes the sorted data into `trending_topics.xlsx` with formatted headers.
-- Captures a full-page screenshot of the trends page as `trending_screenshot.png`.
+2. Create and activate a virtual environment:
+   ```bash
+   python -m venv venv
+   venv\Scripts\activate        # Windows
+   source venv/bin/activate     # macOS/Linux
+   ```
 
-**Run:**
-```bash
-cd 3_trending_topics_scraper
-python trending_scraper.py
-```
+3. Install all dependencies:
+   ```bash
+   pip install -r requirements.txt
+   playwright install chromium
+   ```
 
-**Output:** `trending_topics.xlsx`, `trending_screenshot.png`
-
----
-
-## 📦 requirements.txt
-
-```
-pyautogui
-playwright
-openpyxl
-pandas
-```
+4. Run any project from its respective folder as shown above.
 
 ---
 
-## ⚠️ Disclaimer
+## 🛠️ Tools & Libraries Used
 
-These scripts are built for **educational purposes** as part of a training assignment. Web scraping and automation should always comply with the target website's Terms of Service and applicable data/privacy laws (e.g., only messaging contacts who have given consent). Selectors used for scraping may need updates if the source websites change their page structure.
+| Library | Purpose |
+|---|---|
+| `playwright` | Browser automation for Cricbuzz scraping and WhatsApp Web |
+| `pyautogui` | Screen-level automation for the daily report bot |
+| `openpyxl` | Reading and writing Excel (.xlsx / .xls) reports |
 
 ---
 
 ## 👤 Author
 
-Fathima
-Week 1 – Day 3 Assignment
+**Fathima Suhaila**
+Week 1 – Day 3 Assignment | Python Automation & Web Scraping
+
+---
+
+## 📄 License
+
+This project is for educational purposes as part of a training assignment.
