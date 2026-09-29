@@ -1,0 +1,18 @@
+# --- Project packages (from your FastAPI, Streamlit & WhatsApp apps) ---
+fastapi
+uvicorn[standard]
+streamlit
+playwright
+openpyxl
+
+# --- 10 most commonly needed Python packages for general dev/data work ---
+requests
+pandas
+numpy
+python-dotenv
+pydantic
+beautifulsoup4
+matplotlib
+pytest
+Pillow
+sqlalchemy
