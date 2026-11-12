@@ -1,6 +1,5 @@
-# SE-AI-B12-2-W1-D3
 
-Week 1 – Day 3 assignment: three Python automation and web scraping mini-projects, built with **Playwright**, **PyAutoGUI**, and **Excel reporting**.
+Three Python automation and web scraping mini-projects, built with **Playwright**, **PyAutoGUI**, and **Excel reporting**.
 ## 📁 Repository Structure
 
 ```
